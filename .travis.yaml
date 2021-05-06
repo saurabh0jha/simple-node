@@ -3,19 +3,20 @@ node_js:
   - 13
 services:
   - docker
-# Pre-testing installs
 install:
+  # Pre-testing installs
   - echo "nothing needs to be installed"
-# Scripts to be run such as tests
 before_script:
+  # Scripts to be run such as tests
   - echo "no tests"
 script:
   - docker --version # print the version for logging
   - docker build -t simple-node .
   - docker tag simple-node saurabh0jha/ojha-simple-node:latest
-  # Tasks to perform after the process is successful. 
-  # Formatting the Docker username and password as below enables you 
-  # to programmatically log in without having the password exposed in logs.
+
 after_success:
+  # Tasks to perform after the process is successful.
+  # Formatting the Docker username and password as below enables you
+  # to programmatically log in without having the password exposed in logs.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push saurabh0jha/ojha-simple-node
